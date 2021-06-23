@@ -49,6 +49,7 @@ You specify the task you want to submit agent for with the `aicrowd.json` file, 
        * **Create your new conda environment**
 
             ```sh
+            cd basalt_competition_submission_template
             conda env create -f environment.yml 
             conda activate minerl
             ```
