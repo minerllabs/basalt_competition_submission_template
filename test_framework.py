@@ -1,7 +1,6 @@
 import json
 import logging
 import os
-import threading
 import atexit
 
 import aicrowd_helper
@@ -36,19 +35,11 @@ def main():
     def cleanup_env():
         env.close()
 
-    # A simple function to evaluate on episodes!
-    def evaluate(i, env):
-        print("[{}] Starting evaluator.".format(i))
-        for i in range(MINERL_MAX_EVALUATION_EPISODES):
-            try:
-                agent.run_agent_on_episode(Episode(env))
-            except EpisodeDone:
-                print("[{}] Episode complete".format(i))
-                pass
-
-    thread = threading.Thread(target=evaluate, args=(0, env))
-    thread.start()
-    thread.join()
+    for i in range(MINERL_MAX_EVALUATION_EPISODES):
+        try:
+            agent.run_agent_on_episode(Episode(env))
+        except EpisodeDone:
+            print("[{}] Episode complete".format(i))
 
 
 if __name__ == "__main__":
