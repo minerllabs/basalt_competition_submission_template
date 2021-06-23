@@ -1,3 +1,4 @@
+import os
 import gym
 
 
@@ -66,4 +67,4 @@ class MineRLAgent():
         done = False
         while not done:
             random_act = single_episode_env.action_space.sample()
-            single_episode_env.step(random_act)
+            obs, reward, done, info = single_episode_env.step(random_act)
