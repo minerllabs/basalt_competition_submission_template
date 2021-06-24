@@ -13,7 +13,7 @@ from test_submission_code import MineRLAgent, Episode, EpisodeDone
 import coloredlogs
 coloredlogs.install(logging.DEBUG)
 
-MINERL_GYM_ENV = os.getenv('MINERL_GYM_ENV')
+MINERL_GYM_ENV = os.getenv('MINERL_GYM_ENV', 'MineRLBasaltFindCaveHighRes-v0')
 MINERL_MAX_EVALUATION_EPISODES = int(os.getenv('MINERL_MAX_EVALUATION_EPISODES', 5))
 # We only use one evaluation thread
 EVALUATION_THREAD_COUNT = 1
@@ -32,8 +32,8 @@ def main():
 
     env = gym.make(MINERL_GYM_ENV)
     # Bit of sanity check
-    if env.observation_space["pov"].shape[0] == 1024:
-        raise RuntimeError("The MineRL environment should be a 'HighRes' variant.")
+    if env.observation_space['pov'].shape[0] == 1024:
+        raise RuntimeError('The MineRL environment should be a "HighRes" variant.')
     # Apply downscale wrapper to turn (1024, 1024) observations into (64, 64)
     env = downscale_wrapper.DownscaleWrapper(env)
 
