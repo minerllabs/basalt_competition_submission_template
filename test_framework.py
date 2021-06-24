@@ -6,6 +6,7 @@ import atexit
 import aicrowd_helper
 import gym
 import minerl
+from minerl.herobraine.wrappers import downscale_wrapper
 
 from test_submission_code import MineRLAgent, Episode, EpisodeDone
 
@@ -21,6 +22,7 @@ EVALUATION_THREAD_COUNT = 1
 # EVALUATION CODE  #
 ####################
 
+
 def main():
     agent = MineRLAgent()
     agent.load_agent()
@@ -29,6 +31,11 @@ def main():
     assert EVALUATION_THREAD_COUNT > 0
 
     env = gym.make(MINERL_GYM_ENV)
+    # Bit of sanity check
+    if env.observation_space["pov"].shape[0] == 1024:
+        raise RuntimeError("The MineRL environment should be a 'HighRes' variant.")
+    # Apply downscale wrapper to turn (1024, 1024) observations into (64, 64)
+    env = downscale_wrapper.DownscaleWrapper(env)
 
     # Ensure that videos are closed properly
     @atexit.register
