@@ -32,7 +32,7 @@ def main():
 
     env = gym.make(MINERL_GYM_ENV)
     # Bit of sanity check
-    if env.observation_space['pov'].shape[0] == 1024:
+    if env.observation_space['pov'].shape[0] != 1024:
         raise RuntimeError('The MineRL environment should be a "HighRes" variant.')
     # Apply downscale wrapper to turn (1024, 1024) observations into (64, 64)
     env = downscale_wrapper.DownscaleWrapper(env)
