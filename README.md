@@ -77,6 +77,7 @@ The different files and directories have following meaning:
 ```
 .
 ├── aicrowd.json             # Submission meta information like your username
+├── aicrowd_helper.py        # Helper functions needed for evaluation
 ├── apt.txt                  # Packages to be installed inside docker image
 ├── data                     # The downloaded data, the path to directory is also available as `MINERL_DATA_ROOT` env variable
 ├── test_submission_code.py  # IMPORTANT: Your testing/inference phase code. NOTE: This is NOT the the entry point for testing phase!
